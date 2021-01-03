@@ -7,7 +7,7 @@ look forward
 # how to use
 
 $ ./find_domain.py --help
-Usage: find_domain.py [OPTIONS] DOMAIN
+Usage: find_domain.py [OPTIONS] DOMAIN\r
 
 Options:
   -w PATH  wordlist to search
