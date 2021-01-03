@@ -1,5 +1,5 @@
 # my_domain_find
-search for the dns domain type
+search for the dns domain find
 
 # still a work in progress
 look forward
