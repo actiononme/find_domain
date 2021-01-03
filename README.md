@@ -7,9 +7,9 @@ look forward
 # how to use
 
 $ ./find_domain.py --help
-Usage: find_domain.py [OPTIONS] DOMAIN\r
+Usage: find_domain.py [OPTIONS] DOMAIN
 
-Options:
+Options:\n
   -w PATH  wordlist to search
   -o TEXT  save to the file
   -s       use the search engine:  google.com,baidu.com,bing.com
