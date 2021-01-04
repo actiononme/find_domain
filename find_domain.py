@@ -6,6 +6,7 @@ import os.path
 import dns.resolver
 import sys
 import click
+import socket
 
 
 class Search(object):
@@ -181,15 +182,40 @@ class Engine(object):
 
     def platform(self):
         print("other coming soon")
+
+
+class Check(object):
+    def __init__(self,ip,o):
+        self.ip = ip
+        self.output = o
+
+    def IP(self):
+        self.ip = self.ip.split(".")
+        self.ip.pop()
+        self.ip = '.'.join(self.ip)
+        count = 256
+        for num in range(count):
+            try:
+                r = socket.gethostbyaddr(self.ip+"."+str(num))
+                print("\033[1;32mHOSTNAME:",r[0],"ip address",r[2],"\033[0m")
+                if self.output != '':
+                    with open(self.output,'a') as f:
+                        f.write(r[0]+" "+r[2][0]+"\n")
+                    f.close
+            except Exception as e:
+                print(e)
+
+
                 
 @click.command()
-@click.option("-w",type=click.Path(exists=True),help="wordlist to search")
+@click.option("-domain",default='',help="domain to Search")
+@click.option("-w",type=click.Path(exists=True),help="wordlist to Search")
 @click.option("-o",default='',help="save to the file")
-@click.option("-s",is_flag=True,help="use the search engine: \rgoogle.com,baidu.com,bing.com")
-@click.option("-p",is_flag=True,help="use platform api to search domain")
-@click.argument("domain")
+@click.option("-s",is_flag=True,help="use the Search engine: \rgoogle.com,baidu.com,bing.com")
+@click.option("-p",is_flag=True,help="use platform api to Search domain")
+@click.option("-r",default='',help="reverse the ip for get domain,example 127.0.0.1/24 to check")
 
-def options(domain,w,o,s):
+def options(domain,w,o,s,r,p):
 
     if w:
         if os.path.isfile(w):
@@ -205,6 +231,9 @@ def options(domain,w,o,s):
     elif p:
         engine = Engine(domain,o)
         engine.platform()
+    elif r != '':
+        check = Check(r,o)
+        check.IP()
     
 
 if __name__ == '__main__':
